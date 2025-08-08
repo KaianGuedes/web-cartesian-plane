@@ -6,8 +6,7 @@ html, body {
 canvas {
     background: linear-gradient(
             90deg,
-            rgba(42, 123, 155, 1) 0%,
-            rgba(87, 199, 133, 1) 50%,
-            rgba(237, 221, 83, 1) 100%
+            rgb(178, 208, 217) 0%,
+            rgb(144, 173, 149) 100%
     );
 }
