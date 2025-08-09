@@ -10,25 +10,34 @@ export class Grid implements Drawable {
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
-        let currentPos = new Vector2();
-        let scaledCellSize = this.cellSize * this.camera.scale;
-        ctx.strokeStyle = "white"
+        const scaledCellSize = this.cellSize * this.camera.scale;
 
-        for (let i = 0; i < (window.innerWidth / scaledCellSize); i++) {
+        const topLeftWorld = this.camera.toWorld(0, 0);
+
+        const offset = new Vector2(
+            ((topLeftWorld.x % this.cellSize) + this.cellSize) % this.cellSize,
+            ((topLeftWorld.y % this.cellSize) + this.cellSize) % this.cellSize
+        );
+
+        const start = new Vector2(
+            -offset.x * this.camera.scale,
+            -offset.y * this.camera.scale
+        );
+
+        ctx.strokeStyle = "black";
+
+        for (let x = start.x; x < ctx.canvas.width; x += scaledCellSize) {
             ctx.beginPath();
-            ctx.moveTo(currentPos.x, 0);
-            ctx.lineTo(currentPos.x, window.innerHeight);
-            ctx.stroke()
-
-            currentPos.x += scaledCellSize;
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, ctx.canvas.height);
+            ctx.stroke();
         }
-        for (let i = 0; i < (window.innerHeight / scaledCellSize); i++) {
-            ctx.beginPath();
-            ctx.moveTo(0, currentPos.y);
-            ctx.lineTo(window.innerWidth, currentPos.y);
-            ctx.stroke()
 
-            currentPos.y += scaledCellSize;
+        for (let y = start.y; y < ctx.canvas.height; y += scaledCellSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(ctx.canvas.width, y);
+            ctx.stroke();
         }
     }
 }
