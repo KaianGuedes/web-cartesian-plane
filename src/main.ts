@@ -103,8 +103,8 @@ canvas.addEventListener("mousemove", (event) => {
     );
 
     camera.position.set(
-        camera.position.x + displacement.x,
-        camera.position.y + displacement.y
+        camera.position.x + displacement.x / camera.scale,
+        camera.position.y + displacement.y / camera.scale
     )
 
     panningPos.set(
